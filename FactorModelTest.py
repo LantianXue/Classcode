@@ -13,6 +13,15 @@ import statsmodels.api as sm
 from matplotlib import pyplot as plt
 
 def GRS_test(alpha,eps,mu):
+    '''
+    T: sample size
+    N: number of assets
+    L: number of factors
+    
+    alpha: ndarray, intercepts matrixs, N*1
+    eps: ndarray, residual of ols model, T*N
+    mu: ndarray, matrix of factor values, T*L
+    '''
     T,N = eps.shape
     L = mu.shape[1]
     mu_mean = mu.mean(axis=0)
