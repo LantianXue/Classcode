@@ -62,8 +62,8 @@ if __name__=='__main__':
     return_data.replace(-99.99,0,inplace=True)
     
     portfolio_list = list(return_data)
-    start = ['196307']
-    end = ['201612']
+    start = ['192607','196307']
+    end = ['196306','201612']
     
     for i in range(len(start)):
         alpha = []
@@ -82,7 +82,7 @@ if __name__=='__main__':
             model = sm.OLS(tempy,X)
             result = model.fit()
             eps.append(list(tempy-result.fittedvalues))
-            pred[portfolio] = result.fittedvalues
+            pred[portfolio] = result.fittedvalues-result.params[0]
             alpha.append(result.params[0])
         eps = pd.DataFrame(eps)
             
@@ -109,12 +109,12 @@ if __name__=='__main__':
         plt.xlabel('portfolios')
         plt.show()
         
-        plt.bar(pos,real.mean()-pred.mean())
-        plt.xticks(ticks=pos,labels=portfolio_list,rotation=90)
-        plt.title('the difference between real '+ method+ ' and predicted excess return\n from '+start[i]+' to'+ end[i])
-        plt.ylabel('%')
-        plt.xlabel('portfolios')
-        plt.show()
+#        plt.bar(pos,real.mean()-pred.mean())
+#        plt.xticks(ticks=pos,labels=portfolio_list,rotation=90)
+#        plt.title('the difference between real '+ method+ ' and predicted excess return\n from '+start[i]+' to'+ end[i])
+#        plt.ylabel('%')
+#        plt.xlabel('portfolios')
+#        plt.show()
         
         eps1 = np.array(eps).T
         alpha = np.array(alpha)
